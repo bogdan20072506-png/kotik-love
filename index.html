@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#ffb6d2">
+<title>Для моего котика 💗</title>
+<style>
+  :root { --pink:#ff6fae; --deep:#c92770; --cream:#fff8fb; }
+  * { box-sizing:border-box; }
+  body {
+    margin:0; min-height:100vh; overflow-x:hidden; color:#7b2450;
+    font-family:system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+    background:radial-gradient(circle at top,#fff5fa 0,#ffd8e8 45%,#ffb7d2 100%);
+  }
+  .hearts { position:fixed; inset:0; pointer-events:none; overflow:hidden; z-index:0; }
+  .heart { position:absolute; bottom:-50px; opacity:.6; animation:float linear infinite; }
+  @keyframes float { from {transform:translateY(0) rotate(0);opacity:0} 10%{opacity:.65} to{transform:translateY(-115vh) rotate(35deg);opacity:0} }
+  main { position:relative; z-index:1; width:min(92%,520px); margin:0 auto; padding:34px 0 50px; text-align:center; }
+  .tag { display:inline-block; background:#fff8fbcc; border:1px solid #ffffff; border-radius:999px; padding:8px 14px; font-size:.9rem; }
+  h1 { font-size:clamp(2rem,9vw,3.4rem); line-height:1.05; margin:20px 0 10px; color:#bd286b; }
+  .subtitle { font-size:1.05rem; line-height:1.6; margin:0 auto 24px; max-width:390px; }
+  .card { background:#ffffffd9; border:1px solid #fff; border-radius:26px; padding:24px 20px; box-shadow:0 15px 45px #b92e6c20; backdrop-filter:blur(8px); }
+  .big-heart { font-size:4rem; line-height:1.2; filter:drop-shadow(0 6px 10px #ef77aa55); animation:pulse 1.5s ease-in-out infinite; }
+  @keyframes pulse { 50% { transform:scale(1.09); } }
+  button { border:0; border-radius:999px; background:linear-gradient(135deg,#ff78b4,#e9438b); color:white; font-size:1rem; font-weight:700; padding:14px 21px; box-shadow:0 8px 18px #df438444; cursor:pointer; margin-top:12px; }
+  button:active { transform:scale(.98); }
+  .letter { display:none; text-align:left; line-height:1.75; font-size:1.03rem; margin-top:20px; white-space:pre-line; }
+  .letter.show { display:block; animation:appear .6s ease; }
+  @keyframes appear { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
+  .small { font-size:.86rem; opacity:.8; margin-top:22px; }
+  .promise { margin-top:18px; font-size:.96rem; line-height:1.6; }
+  .footer { margin-top:26px; font-size:.85rem; opacity:.8; }
+  .burst { position:fixed; z-index:5; pointer-events:none; animation:burst 1.8s ease-out forwards; }
+  @keyframes burst { from{transform:translateY(0) scale(.7);opacity:1} to{transform:translateY(-180px) scale(1.5);opacity:0} }
+</style>
+</head>
+<body>
+<div class="hearts" id="hearts"></div>
+<main>
+  <span class="tag">маленький сюрприз только для тебя 💌</span>
+  <h1>Моему котику<br>💗</h1>
+  <p class="subtitle">Есть кое-что, что я хочу сказать тебе… Нажми на сердечко.</p>
+  <section class="card">
+    <div class="big-heart">💖</div>
+    <div style="font-weight:700;font-size:1.15rem;margin-top:8px">Для самой особенной</div>
+    <button id="openBtn">Открыть моё письмо 💌</button>
+    <div class="letter" id="letter">Мой котик ❤️
+
+Я просто хочу, чтобы ты знала: ты очень много для меня значишь. Ты умеешь делать мои дни теплее, а обычные моменты — особенными.
+
+Мне нравится думать о тебе, улыбаться из-за твоих сообщений и знать, что в этом мире есть именно ты. Я не обещаю быть идеальным, но обещаю стараться, заботиться о тебе, слушать тебя и показывать поступками, как ты мне дорога.
+
+Если у тебя когда-нибудь будет тяжёлый день, вспомни: ты не обязана всегда быть сильной. Я хочу быть рядом, поддерживать тебя и радоваться вместе с тобой.
+
+Спасибо, что ты есть у меня, котик. 💗
+
+Обнимаю тебя крепко-крепко.
+Твой ❤️</div>
+    <div class="promise">Ты заслуживаешь нежности, заботы и множества счастливых моментов. 🌷</div>
+  </section>
+  <p class="small">Нажми ещё раз, если захочешь снова увидеть письмо.</p>
+  <div class="footer">Сделано с любовью 💕</div>
+</main>
+<script>
+const heartBox=document.getElementById('hearts');
+const symbols=['💗','💕','💖','♡','💘','🌸'];
+for(let i=0;i<24;i++){
+  const el=document.createElement('span'); el.className='heart';
+  el.textContent=symbols[Math.floor(Math.random()*symbols.length)];
+  el.style.left=Math.random()*100+'%';
+  el.style.fontSize=(16+Math.random()*22)+'px';
+  el.style.animationDuration=(8+Math.random()*12)+'s';
+  el.style.animationDelay=(-Math.random()*18)+'s';
+  heartBox.appendChild(el);
+}
+const letter=document.getElementById('letter');
+document.getElementById('openBtn').addEventListener('click',()=>{
+  letter.classList.toggle('show');
+  document.getElementById('openBtn').textContent=letter.classList.contains('show')?'Спрятать письмо 💗':'Открыть моё письмо 💌';
+  for(let i=0;i<18;i++){
+    const e=document.createElement('span'); e.className='burst';
+    e.textContent=symbols[Math.floor(Math.random()*symbols.length)];
+    e.style.left=(10+Math.random()*80)+'vw'; e.style.top=(35+Math.random()*35)+'vh';
+    e.style.fontSize=(18+Math.random()*22)+'px'; document.body.appendChild(e);
+    setTimeout(()=>e.remove(),1900);
+  }
+});
+</script>
+</body>
+</html>
